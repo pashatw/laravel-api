@@ -28,8 +28,11 @@ class SectionController extends Controller
         	return parent::failResponse($validator->errors()->first(), $validator->errors(), Response::HTTP_BAD_REQUEST);
         }
 
+        $filter_task = !empty($request->filter_task) ? $request->filter_task : null;
+
+
     	$sectionRepo = new SectionRepository();
-    	$section = $sectionRepo->getById($request->id);
+    	$section = $sectionRepo->getById($request->id, $filter_task);
 
     	return parent::successResponse("", $section);
     }

@@ -22,10 +22,17 @@ class SectionRepository
 		return $section;
 	}
 
-	public function getById($id)
+	public function getById($id, $filter_task = null)
 	{
 		$section = SectionModel::query()
-			->with('task')
+			->with([
+				'task' => function($query) use ($filter_task){
+					if (!empty($filter_task)) {
+	                    $query->where('task_state', $filter_task);
+					}
+                }, 
+                'task.section'
+            ])
 			->where('id', $id)
 			->first();
 		return $section;

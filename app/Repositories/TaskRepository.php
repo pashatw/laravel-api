@@ -13,13 +13,17 @@ class TaskRepository
 		# code...
 	}
 
-	public function getAll()
+	public function getAll($filter_state = null)
 	{
-		$task = TaskModel::query()
-			->with('section')
+		$task = TaskModel::query();
+		
+		if (!empty($filter_state)) {
+			$task->where('task_state', $filter_state);
+		}
+
+		return $task->with('section')
 			->orderBy('created_at', 'desc')
 			->get();
-		return $task;
 	}
 
 	public function getManyBySection($section_id)

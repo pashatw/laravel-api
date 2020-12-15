@@ -24,6 +24,17 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
+                        <span class="align-middle">
+                            <p class="">Filter by :</p>
+                        </span>
+                        <div>
+                            <select class="custom-select" id="filter-state">
+                                <option value selected>All</option>
+                                <option value="1">Todo</option>
+                                <option value="2">Done</option>
+                            </select>
+                        </div> 
+                        <br>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="taskTable" width="100%" cellspacing="0">
                                 <thead>
@@ -50,14 +61,15 @@
 @section('script_extra')
     <script type="text/javascript">
         $(document).ready(function(){ 
-            getTask();
+            getTask(null);
 
-            function getTask() {
+            function getTask(filter_state) {
                 $.ajax({
                     type: "POST",
                     url: "{{route('ajax.task.get_all')}}",
                     data: {
                         "_token": "{{ csrf_token() }}",
+                        "filter_state": filter_state
                     },
                     success: function(response) {
                         console.log(response)
@@ -86,6 +98,10 @@
                 });
             }
 
+            $('#filter-state').on('change', function(e) {
+                getTask($('#filter-state').val());
+            });
+
             $('#taskTable').on('click', '.taskDelete', function(e) {
                 e.preventDefault();
 
@@ -101,7 +117,7 @@
                             'id' : id
                         },
                         success: function(response) {
-                            getTask()
+                            getTask(null)
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.log(xhr, ajaxOptions, thrownError)

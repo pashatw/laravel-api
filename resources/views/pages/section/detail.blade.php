@@ -21,6 +21,17 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
+                        <span class="align-middle">
+                            <p class="">Filter by :</p>
+                        </span>
+                        <div>
+                            <select class="custom-select" id="filter-task">
+                                <option value selected>All</option>
+                                <option value="1">Todo</option>
+                                <option value="2">Done</option>
+                            </select>
+                        </div> 
+                        <br>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="taskTable" width="100%" cellspacing="0">
                                 <thead>
@@ -50,12 +61,17 @@
 
             var idSection = "{{@$id}}";
             if (idSection != null && idSection != '') {
+                getSection()
+            } 
+
+            function getSection() {
                 $.ajax({
                     type: "POST",
                     url: "{{route('ajax.section.get_by_id')}}",
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        id: idSection
+                        id: idSection,
+                        filter_task: $("#filter-task").val()
                     },
                     success: function(response) {
                         console.log(response);
@@ -83,7 +99,11 @@
                         }
                     }
                 });
-            } 
+            }
+
+            $('#filter-task').on('change', function(e) {
+                getSection();
+            });
         });
     </script>
 @stop

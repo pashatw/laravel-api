@@ -12,8 +12,10 @@ class TaskController extends Controller
 {
     public function getAll(Request $request)
     {
+        $filter_state = !empty($request->filter_state) ? $request->filter_state : null;
+        
     	$sectionRepo = new TaskRepository();
-    	$section = $sectionRepo->getAll();
+    	$section = $sectionRepo->getAll($filter_state);
 
     	return parent::successResponse("", $section);
     }
