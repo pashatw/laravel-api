@@ -215,6 +215,21 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('theme/js/sb-admin-2.min.js')}}"></script>
 
+    <script type="text/javascript">
+        origin = window.location.href;
+        var myState = [];
+
+        $("#backBtn").click(function (e){
+          e.preventDefault();
+          window.history.back();
+        });
+
+        $(window).on('hashchange', function(e){
+          history.replaceState(myState, "first", origin);
+          window.history.go(-1);
+        });
+    </script>
+
     @yield('script_extra')
 
 </body>
