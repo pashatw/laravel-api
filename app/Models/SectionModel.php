@@ -15,4 +15,9 @@ class SectionModel extends Model
     protected $fillable = [
     	'section_name'
     ];
+    
+    public function task()
+    {
+        return $this->hasMany(TaskModel::class, 'section_id', 'id');
+    }
 }

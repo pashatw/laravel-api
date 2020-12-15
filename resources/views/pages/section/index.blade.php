@@ -30,8 +30,6 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Task</th>
-                                        <th>Todo</th>
-                                        <th>Done</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -68,10 +66,9 @@
                         $.each(response.payload, function(i, item) {
                             $('<tr>').html(
                                 '<td>'+item.section_name+'</td>'+
-                                '<td>5</td>'+
-                                '<td>4</td>'+
-                                '<td>1</td>'+
+                                '<td>'+item.task.length+'</td>'+
                                 '<td>'+
+                                    '<a href="{{route('section.detail')}}/'+item.id+'" class="d-none d-sm-inline-block btn btn-sm btn-default shadow-sm">Detail</a> '+
                                     '<a href="{{route('section.edit')}}/'+item.id+'" class="d-none d-sm-inline-block btn btn-sm btn-default shadow-sm"><i class="fas fa-pencil-alt fa-sm"></i> Edit</a> '+
                                     '<a href="#" data-id="'+item.id+'" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm sectionDelete"><i class="fas fa-trash-alt fa-sm"></i> Delete</a>'+
                                 '</td>'

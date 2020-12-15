@@ -16,6 +16,7 @@ class SectionRepository
 	public function getAll()
 	{
 		$section = SectionModel::query()
+			->with('task')
 			->orderBy('created_at', 'desc')
 			->get();
 		return $section;
@@ -23,7 +24,10 @@ class SectionRepository
 
 	public function getById($id)
 	{
-		$section = SectionModel::find($id);
+		$section = SectionModel::query()
+			->with('task')
+			->where('id', $id)
+			->first();
 		return $section;
 	}
 

@@ -17,6 +17,13 @@ class DefaultController extends Controller
     	return view('pages.section.index');
     }
 
+    public function sectionDetail(Request $request, $id)
+    {
+        $data = [];
+        $data['id'] = $id;
+        return view('pages.section.detail', $data);
+    }
+
     public function sectionAdd(Request $request)
     {
     	return view('pages.section.add');

@@ -17,6 +17,7 @@ Route::get('/', "App\Http\Controllers\DefaultController@index")->name('dashboard
 
 // section
 Route::get('/section', "App\Http\Controllers\DefaultController@section")->name('section');
+Route::get('/section/{id?}', "App\Http\Controllers\DefaultController@sectionDetail")->name('section.detail');
 Route::get('/section/add', "App\Http\Controllers\DefaultController@sectionAdd")->name('section.add');
 Route::get('/section/edit/{id?}', "App\Http\Controllers\DefaultController@sectionEdit")->name('section.edit');
 
