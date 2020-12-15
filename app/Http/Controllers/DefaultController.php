@@ -11,6 +11,7 @@ class DefaultController extends Controller
     	return view('pages.dashboard');
     }
 
+    // section
     public function section(Request $request)
     {
     	return view('pages.section.index');
@@ -26,5 +27,23 @@ class DefaultController extends Controller
     	$data = [];
     	$data['id'] = $id;
     	return view('pages.section.add', $data);
+    }
+
+    // task
+    public function task(Request $request)
+    {
+    	return view('pages.task.index');
+    }
+
+    public function taskAdd(Request $request)
+    {
+    	return view('pages.task.add');
+    }
+
+    public function taskEdit(Request $request, $id)
+    {
+    	$data = [];
+    	$data['id'] = $id;
+    	return view('pages.task.add', $data);
     }
 }
